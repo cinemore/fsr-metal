@@ -6,7 +6,7 @@ Apple Metal 原生 FSR 1 EASU／RCAS 空间超分，提供独立 Swift Package �
 
 ## 使用
 
-本机项目通过 `.package(path: "../fsr-metal")` 引入 `FSRMetal` product：
+通过 `.package(url: "https://github.com/cinemore/fsr-metal.git", exact: "0.1.0")` 引入 `FSRMetal` product；本机开发也可使用 `.package(path: "../fsr-metal")`：
 
 ```swift
 import FSRMetal
@@ -29,7 +29,7 @@ swift run fsr-metal --self-test
 swift run fsr-metal --input input.png --output output.png --bench 5
 ```
 
-默认输出 2×；宽高参数须成对传入，--no-sharpen 只执行 EASU。 发布工作流生成 arm64、x86_64、universal 二进制归档，程序与资源 bundle 必须放在相邻位置。首次发布并同步共享 tap 后可使用：
+默认输出 2×；宽高参数须成对传入，--no-sharpen 只执行 EASU。 发布工作流生成 arm64、x86_64、universal 二进制归档，程序与资源 bundle 必须放在相邻位置。通过共享 Homebrew tap 安装：
 
 ```sh
 brew install cinemore/tap/fsr-metal

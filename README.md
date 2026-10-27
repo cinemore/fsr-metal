@@ -15,10 +15,10 @@ The library has no CinePlayer, Anime4K, UI or playback dependency. It bundles it
 
 ## Swift Package usage
 
-For the current sibling checkout:
+Add the v0.1.0 release with Swift Package Manager:
 
 ```swift
-dependencies: [.package(path: "../fsr-metal")],
+dependencies: [.package(url: "https://github.com/cinemore/fsr-metal.git", exact: "0.1.0")],
 targets: [
     .target(name: "YourTarget", dependencies: [
         .product(name: "FSRMetal", package: "fsr-metal")
@@ -38,6 +38,8 @@ let imageOutput = try upscaler.enhance(image: image)
 The output must enlarge the source without shrinking either dimension. The caller controls aspect ratio through the requested dimensions. RCAS parameter `nil` disables sharpening; `0` is strongest and `2` weakest.
 
 The synchronous high-level API serializes calls, waits for GPU completion and returns independently owned buffers. It accepts BGRA directly and converts other supported CoreVideo formats through VideoToolbox. Source data is not modified; display/color attachments are carried to the output with clean aperture scaled. The CGImage entry point converts image colors to sRGB.
+
+For sibling development checkouts, replace the URL requirement with `.package(path: "../fsr-metal")`.
 
 ## Integrating into a GPU pipeline
 
@@ -61,7 +63,7 @@ Without `--width`/`--height`, the CLI uses 2×. Provide both dimensions together
 
 The release workflow builds **arm64**, **x86_64** and **universal** archives. Every archive includes `bin/fsr-metal`, its adjacent `FSRMetal_FSRMetal.bundle`, LICENSE and notices. Keep the bundle beside the executable when relocating it.
 
-After publishing a release and its generated formula to `cinemore/homebrew-tap`:
+Install the CLI from the shared `cinemore/homebrew-tap`:
 
 ```sh
 brew install cinemore/tap/fsr-metal
