@@ -1,0 +1,8 @@
+{
+  "name": "fsr-metal-tools",
+  "private": true,
+  "scripts": {
+    "release:pack": "bun tools/release.ts",
+    "tap:update": "bun tools/update-tap.ts"
+  }
+}

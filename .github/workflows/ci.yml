@@ -1,0 +1,14 @@
+name: CI
+on: [push, pull_request]
+permissions:
+  contents: read
+jobs:
+  test:
+    runs-on: macos-15
+    steps:
+      - uses: actions/checkout@v6.0.2
+      - run: swift test
+      - run: swift build -c release --product fsr-metal
+      - run: .build/release/fsr-metal --self-test
+      - name: Verify iOS library build
+        run: xcodebuild -scheme FSRMetal -destination 'generic/platform=iOS' -skipPackagePluginValidation CODE_SIGNING_ALLOWED=NO build
