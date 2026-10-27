@@ -2,7 +2,9 @@
 
 [English](README.md) | [简体中文](README-zh.md)
 
-Apple Metal 原生 FSR 1 EASU／RCAS 空间超分，提供独立 Swift Package 和 macOS 命令行程序。库不依赖 CinePlayer、Anime4K 或播放器界面，Metal 资源、模型来源及许可证由包自行管理。
+基于 Apple Metal 的 FSR 1 EASU／RCAS 空间超分，提供 Swift Package 和 macOS 命令行工具。
+
+Swift API 可接入图像工具、视频播放器和处理流水线，处理 `CVPixelBuffer` 视频帧或 `CGImage` 图像；命令行工具可直接放大图片，也可在脚本中批量调用。Metal 资源、模型来源及许可证随包提供。
 
 ## 使用
 
@@ -19,7 +21,7 @@ let imageOutput = try upscaler.enhance(image: image)
 
 高层入口内部串行并等待 GPU 完成，每次返回独立输出，不改写原图或先前结果；支持 BGRA 和 VideoToolbox 可转换的像素缓冲，保留显示／颜色附件并缩放 clean aperture。CGImage 入口转为 sRGB BGRA。仅支持 SDR；拒绝 HDR／杜比元数据。
 
-底层 `FSREngine` 接收调用方的纹理和 command buffer，不代为提交或等待。单实例须串行编码，GPU 完成后才可复用工作区。 播放预算、代际、帧率准入、三槽背压及播放行为由宿主负责。
+底层 `FSREngine` 接收调用方的纹理和 command buffer，不代为提交或等待。单实例须串行编码，GPU 完成后才可复用工作区。应用可按自身流水线配置任务调度、取消策略和输出缓冲池。
 
 ## 命令行和分发
 

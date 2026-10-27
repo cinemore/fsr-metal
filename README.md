@@ -2,9 +2,13 @@
 
 [English](README.md) | [简体中文](README-zh.md)
 
-Native Apple Metal FSR 1 spatial upscaling (EASU + optional RCAS) — independent Swift Package and macOS CLI.
+Native Apple Metal FSR 1 spatial upscaling (EASU + optional RCAS) — Swift Package and macOS CLI.
 
-The library has no CinePlayer, Anime4K, UI or playback dependency. It bundles its own Metal library and upstream notices. The shader preserves strict FP32 arithmetic and separate EASU/RCAS passes.
+The Swift API enhances `CVPixelBuffer` video frames and `CGImage` images for image
+tools, video players and processing pipelines. The macOS CLI upscales images from
+a terminal or batch scripts.
+
+The package bundles its Metal library and upstream notices. The shader preserves strict FP32 arithmetic and separate EASU/RCAS passes.
 
 ## Requirements
 
@@ -47,7 +51,7 @@ For sibling development checkouts, replace the URL requirement with `.package(pa
 
 `encode(command:input:output:sharpness:)` preserves separate EASU and optional RCAS passes and reuses its FP32 workspace.
 
-Playback cadence limits, deadlines, cancellation generations, buffer pool capacity and backpressure belong to the host app. Cinemore keeps its existing three-slot pool and scheduling.
+Applications control scheduling, cancellation and output buffer pools when composing video or GPU processing pipelines.
 
 ## CLI
 
@@ -85,7 +89,7 @@ bun tools/release.ts v0.1.0
 
 CI runs package tests, release CLI GPU smoke and an iOS library build. Tag a validated version `vX.Y.Z` to trigger release publication. Optional repository secret `HOMEBREW_TAP_TOKEN` must have write access to `cinemore/homebrew-tap`; the workflow then adds/updates its formula and pushes a narrowly scoped tap commit. Without it, release assets still include the installable formula.
 
-Tests cover real GPU kernels, source/retained output ownership, SDR admission, image conversion, metadata, and EASU-only/RCAS modes and invalid dimensions. Cinemore owns frozen-frame hash and real-playback regression checks. Platform declarations are not a claim of device runtime validation; record actual verification in [VALIDATION.md](VALIDATION.md).
+Tests cover real GPU kernels, source/retained output ownership, SDR admission, image conversion, metadata, and EASU-only/RCAS modes and invalid dimensions. Platform declarations are not a claim of device runtime validation; record actual verification in [VALIDATION.md](VALIDATION.md).
 
 ## License
 
